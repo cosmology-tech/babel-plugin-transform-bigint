@@ -1,5 +1,5 @@
 {
-  "name": "babel-plugin-transform-bigint",
+  "name": "@cosmology/babel-plugin-transform-bigint",
   "version": "1.0.32",
   "description": "A plugin for babel to transform `x * y` into something like `JSBI.multiply(x, y)` to support bigints.",
   "main": "index.js",
