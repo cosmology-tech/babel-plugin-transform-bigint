@@ -77,27 +77,20 @@ exports[`CallExpression's type 1`] = `
   }
 };
 import JSBI from \\"./jsbi.mjs\\";
-
 function n() {
   return 3;
 }
-
 console.log(n() * n());
-
 function b() {
   return JSBI.BigInt(3);
 }
-
 console.log(JSBI.multiply(b(), b()));
-
 function nb() {
   if (Math.random() < 0.5) {
     return 3;
   }
-
   return JSBI.BigInt(3);
 }
-
 console.log(maybeJSBI.multiply(nb(), nb()));"
 `;
 
@@ -165,39 +158,32 @@ exports[`default values 1`] = `
   }
 };
 import JSBI from \\"./jsbi.mjs\\";
-
 function f(y = unknown(), z = maybeJSBI.multiply(y, y)) {
   if (!(y instanceof JSBI)) {
     throw new RangeError();
   }
-
   return maybeJSBI.multiply(y, y);
 }"
 `;
 
 exports[`internal bigint function 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f(a) {
   return JSBI.multiply(a, a);
 }
-
 console.log(f(JSBI.BigInt(3)));"
 `;
 
 exports[`internal number function 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f(a) {
   return a * a;
 }
-
 console.log(f(3));"
 `;
 
 exports[`it does not replace expression for a mutable variable 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f() {
   for (let i = 0; i < 10; i += 1) {
     console.log(i * i);
@@ -207,7 +193,6 @@ function f() {
 
 exports[`it does not replace expression for a mutable variable2 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f() {
   let i = 1;
   i = -i;
@@ -217,7 +202,6 @@ function f() {
 
 exports[`it works with AssignmentExpressions 1`] = `
 "var _x, _x2, _x3, _x4, _y;
-
 import JSBI from \\"./jsbi.mjs\\";
 const o = {};
 o.x = {};
@@ -238,50 +222,41 @@ array[0] = JSBI.add(array[0], b);"
 
 exports[`maybeJSBI 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f(a) {
   return JSBI.toNumber(JSBI.asUintN(64, a));
 }
-
 console.log(f(JSBI.BigInt(3)));"
 `;
 
 exports[`maybeJSBI avoided for a FunctionExpression 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 const f = function (x) {
   if (typeof x !== 'number') {
     throw new RangeError();
   }
-
   return x * x;
 };"
 `;
 
 exports[`maybeJSBI2 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f(a) {
   return Number(JSBI.lessThan(JSBI.BigInt(a), JSBI.BigInt(0)));
 }
-
 console.log(f(JSBI.BigInt(3)));"
 `;
 
 exports[`maybeJSBI2a 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f(a) {
   const x = JSBI.lessThan(JSBI.BigInt(a), JSBI.BigInt(0));
   return Number(x);
 }
-
 console.log(f(JSBI.BigInt(3)));"
 `;
 
 exports[`maybeJSBI3 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f(a) {
   return Math.floor(a + a);
 }"
@@ -290,40 +265,50 @@ function f(a) {
 exports[`non-strict comparisions are not changed 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
 const g = JSBI.BigInt(1);
-
 if (g == 1) {
   console.log(g);
 }
-
 if (g != 1) {
   console.log(g);
 }
-
 if (g < 1) {
   console.log(g);
 }
-
 if (g > 1) {
   console.log(g);
 }
-
 if (g <= 1) {
   console.log(g);
 }
-
 if (g >= 1) {
   console.log(g);
 }"
 `;
 
+exports[`options jsbiLib ./jsbi.js 1`] = `
+"import JSBI from \\"./jsbi.js\\";
+let g1 = 1;
+g1 = JSBI.BigInt(1);
+if (JSBI.equal(g1, JSBI.BigInt(1))) {
+  console.log(g1);
+}"
+`;
+
+exports[`options jsbiLib jsbi 1`] = `
+"import JSBI from \\"jsbi\\";
+let g1 = 1;
+g1 = JSBI.BigInt(1);
+if (JSBI.equal(g1, JSBI.BigInt(1))) {
+  console.log(g1);
+}"
+`;
+
 exports[`sometimes type of conditional expression can be determined as JSBI 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f(a) {
   const b = JSBI.equal(JSBI.remainder(a, JSBI.BigInt(3)), JSBI.BigInt(0)) ? JSBI.BigInt(1) : JSBI.BigInt(3);
   return JSBI.multiply(b, b);
 }
-
 export default f;"
 `;
 
@@ -391,53 +376,41 @@ exports[`typeof type guard (see https://www.typescriptlang.org/docs/handbook/2/n
   }
 };
 import JSBI from \\"./jsbi.mjs\\";
-
 function f1(a) {
   if (!(a instanceof JSBI)) {
     throw new RangeError();
   }
-
   return JSBI.multiply(a, a);
 }
-
 function f2(a, b) {
   if (!(a instanceof JSBI) || !(b instanceof JSBI)) {
     throw new RangeError();
   }
-
   return JSBI.multiply(a, b);
 }
-
 function f3(a) {
   if (typeof a !== 'number') {
     throw new RangeError();
   }
-
   return a * a;
 }
-
 function f4(a, b) {
   if (typeof a !== 'number' || typeof b !== 'number') {
     throw new RangeError();
   }
-
   return a * b;
 }
-
 function f5(a) {
   if (!(a instanceof JSBI)) {
     void 0;
   }
-
   return maybeJSBI.multiply(a, a);
 }
-
 export { f1, f2, f3, f4, f5 };"
 `;
 
 exports[`works 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
-
 function f() {
   const x = JSBI.BigInt(1);
   return JSBI.add(x, x);
@@ -448,7 +421,6 @@ exports[`works when type of variable is changed 1`] = `
 "import JSBI from \\"./jsbi.mjs\\";
 let g1 = 1;
 g1 = JSBI.BigInt(1);
-
 if (JSBI.equal(g1, JSBI.BigInt(1))) {
   console.log(g1);
 }"

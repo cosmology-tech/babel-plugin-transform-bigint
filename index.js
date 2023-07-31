@@ -2,7 +2,7 @@
 
 const syntaxBigInt = require('@babel/plugin-syntax-bigint').default;
 
-module.exports = function (babel) {
+module.exports = function (babel, options) {
   const types = babel.types;
   const getFunctionName = function (operator) {
     switch (operator) {
@@ -401,7 +401,7 @@ module.exports = function (babel) {
   const JSBI = 'JSBI';
   const maybeJSBI = 'maybeJSBI';
   //const maybeJSBI = JSBI;
-  const IMPORT_PATH = './jsbi.mjs';
+  const IMPORT_PATH = options && options.jsbiLib ? options.jsbiLib : './jsbi.mjs';
 
   const maybeJSBICode = `
 
@@ -469,7 +469,7 @@ var maybeJSBI = {
 };
   `;
   //const maybeJSBICode = '';
-  
+
   const typeOfIgnore = new Set();
 
   return {
@@ -539,7 +539,7 @@ var maybeJSBI = {
         if (path.node.operator === 'typeof' && !typeOfIgnore.has(path.node)) {
           throw new RangeError('not supported');
         }
-      },  
+      },
       UpdateExpression: function (path, state) {
         throw new RangeError('UpdateExpressions are not supported because of the complexity: ' + path);
         // The implementation below is buggy, as it converts ++x to x += 1n even for number x
@@ -597,7 +597,7 @@ var maybeJSBI = {
             }
           }
         }*/
-        
+
       },
       AssignmentExpression: function (path, state) {
         const isConstant = function (path) {

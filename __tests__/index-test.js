@@ -350,5 +350,26 @@ it('maybeJSBI avoided for a FunctionExpression', function () {
   expect(code).toMatchSnapshot();
 });
 
+it('options jsbiLib jsbi', function () {
+  const example = `
+    let g1 = 1;
+    g1 = 1n;
+    if (g1 === 1n) {
+      console.log(g1);
+    }
+  `;
+  const {code} = babel.transform(example, {plugins: [[ plugin , {jsbiLib: "jsbi"}]]});
+  expect(code).toMatchSnapshot();
+});
 
-  
+it('options jsbiLib ./jsbi.js', function () {
+  const example = `
+    let g1 = 1;
+    g1 = 1n;
+    if (g1 === 1n) {
+      console.log(g1);
+    }
+  `;
+  const {code} = babel.transform(example, {plugins: [[ plugin , {jsbiLib: "./jsbi.js"}]]});
+  expect(code).toMatchSnapshot();
+});
