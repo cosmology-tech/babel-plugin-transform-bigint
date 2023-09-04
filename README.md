@@ -1,8 +1,10 @@
 # babel-plugin-transform-bigint
 
 *Update:* Now it can convert a code using BigInt into a code using JSBI (https://github.com/GoogleChromeLabs/jsbi).
-It will try to detect when an operator is used for bigints, not numbers. This will not work in many cases, so please use JSBI directly only 
+It will try to detect when an operator is used for bigints, not numbers. This will not work in many cases, so please use JSBI directly only
 if you know, that the code works only with bigints.
+
+*Update by Cosmology tech:* Added config for changing jsbi lib string inside "import JSBI from 'jsbi';". More detail please see config section.
 
 An example from https://github.com/GoogleChromeLabs/babel-plugin-transform-jsbi-to-bigint:
 ==========================================================================================
@@ -65,15 +67,16 @@ a.toString();
 JSBI.toNumber(a);
 ```
 
-Playground:
-===========
-1. Open https://babeljs.io/en/repl
-2. Turn off all presets.
-3. "Add plugin" @babel/babel-plugin-syntax-bigint
-4. "Add plugin" babel-plugin-transform-bigint
+Config:
+========
 
+Users can change jsbi lib string in "import JSBI from './jsbi.mjs';" after transpiling by config in .babelrc.json:
 
-¡ It is buggy !
+e.g.:
+```
+  // this will change import into: import JSBI from 'jsbi';
+  "plugins": [["@cosmology/babel-plugin-transform-bigint", { "jsbiLib": "jsbi" }]]
+```
 
 Example:
 ========
